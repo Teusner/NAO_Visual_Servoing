@@ -23,6 +23,22 @@ The script *visual_servoing.py* provide a ball tracker class which let us track 
 
 This algorithm detect the center of gravity of the biggest circular yellow object in the HSV color space of the video stream.
 
+A module has been implemented in order to return if the ball was found in the provided frame, the cooridnates of the center of gravity of this ball, and its radius. The following output was obtained with this module :
+
+```bash
+False None None
+False None None
+True (347, 469) 42.012001037597656
+True (346, 470) 40.51244354248047
+True (346, 470) 40.51244354248047
+True (344, 470) 39.51275634765625
+True (344, 470) 39.51275634765625
+True (344, 470) 39.51275634765625
+True (343, 470) 37.513431549072266
+```
+
+Where the output is in the format : {found : bool, (cx, cy) : tuple (int, int), radius : float}.
+
 ## Authors
 
 * **Quentin Brateau** -  [Teusner](https://github.com/Teusner) :sunglasses:
