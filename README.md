@@ -39,6 +39,12 @@ True (343, 470) 37.513431549072266
 
 Where the output is in the format : *{found : bool, (cx, cy) : tuple (int, int), radius : float}*.
 
+## Realtime NAO images processing
+
+The simulator is fully functionnal and well setup. We are able to simulate the NAO using V-REP of Copelia Robotics, and the captured image of the simulated environment is correctly send to the python script which is now able to show the NAO camera.
+
+![](imgs/nao_camera.png)
+
 ## Authors
 
 * **Quentin Brateau** -  [Teusner](https://github.com/Teusner) :sunglasses:
