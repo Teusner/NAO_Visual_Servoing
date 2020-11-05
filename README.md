@@ -15,6 +15,14 @@ Here is a tracker for each task we have to do.
 | Head heading control     |:x:               |
 | Distance control         |:x:               |
 
+## Ball detection
+
+The script *visual_servoing.py* provide a ball tracker class which let us track a yellow ball like a tennis ball in a video stream.
+
+![](imgs/ball_tracking.png)
+
+This algorithm detect the center of gravity of the biggest circular yellow object in the HSV color space of the video stream.
+
 ## Authors
 
 * **Quentin Brateau** -  [Teusner](https://github.com/Teusner) :sunglasses:
