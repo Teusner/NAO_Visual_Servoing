@@ -37,7 +37,7 @@ True (344, 470) 39.51275634765625
 True (343, 470) 37.513431549072266
 ```
 
-Where the output is in the format : {found : bool, (cx, cy) : tuple (int, int), radius : float}.
+Where the output is in the format : *{found : bool, (cx, cy) : tuple (int, int), radius : float}*.
 
 ## Authors
 
