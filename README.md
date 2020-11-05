@@ -10,7 +10,7 @@ Here is a tracker for each task we have to do.
 | Task                     | Progression      |
 | -------------------------|:----------------:|
 | Ball detection           |:heavy_check_mark:|
-| Read and show NAO images |:x:               |
+| Read and show NAO images |:heavy_check_mark:|
 | Realtime detection       |:x:               |
 | Head heading control     |:x:               |
 | Distance control         |:x:               |
