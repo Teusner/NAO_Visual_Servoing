@@ -11,8 +11,8 @@ Here is a tracker for each task we have to do.
 | --------------------------------|:----------------:|
 | Ball detection                  |:heavy_check_mark:|
 | Read and show NAO images        |:heavy_check_mark:|
-| Realtime detection              |:x:               |
-| Head heading control            |:x:               |
+| Realtime detection              |:heavy_check_mark:|
+| Head heading control            |:heavy_check_mark:|
 | Ratio distance pixel estimating |:heavy_check_mark:|
 | Distance control                |:x:               |
 
@@ -45,6 +45,14 @@ Where the output is in the format : *{found : bool, (cx, cy) : tuple (int, int),
 The simulator is fully functionnal and well setup. We are able to simulate the NAO using V-REP of Copelia Robotics, and the captured image of the simulated environment is correctly send to the python script which is now able to show the NAO camera.
 
 ![](imgs/nao_camera.png)
+
+## Realtime detection
+
+The realtime detection is just the bind detween the BallTracker module and the simulation of the nao. Th goal of this part is to be able to detect the yellow ball in the captured frame of the nao's camera.
+
+## Head heading control
+
+The goal of our mission is to target the ball with the nao's camera, and to be able to shoot it. To do this task we first need to rotate the nao's head in order to be focus on the yellow ball, and to move it in the center of the captured image. To do so, we used a proportional controller in order to move the head depending on the committed error (the difference between the center of the ball and the center of the image along the x axis).
 
 ## Ratio distance pixel estimating
 
