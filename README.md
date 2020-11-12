@@ -54,7 +54,7 @@ The realtime detection is just the bind detween the BallTracker module and the s
 
 The goal of our mission is to target the ball with the nao's camera, and to be able to shoot it. To do this task we first need to rotate the nao's head in order to be focus on the yellow ball, and to move it in the center of the captured image. To do so, we used a proportional controller in order to move the head depending on the committed error (the difference between the center of the ball and the center of the image along the x axis).
 
-![formula]("https://render.githubusercontent.com/render/math?math=\theta_c=K_p.(c_x-c_0)")
+![formula](https://render.githubusercontent.com/render/math?math=\theta_c=K_p.(c_x-c_0))
 
 ## Ratio distance pixel estimating
 
