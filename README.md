@@ -46,6 +46,30 @@ The simulator is fully functionnal and well setup. We are able to simulate the N
 
 ![](imgs/nao_camera.png)
 
+## Ratio distance pixel estimating
+
+The ration between the distance of the ball from the camera of the nao and its pixel size on the image is
+
+![formula](https://render.githubusercontent.com/render/math?math=\frac{\lambda}{\beta}=\frac{d_B.l_{px}}{l_B})
+
+Where :
+* ![formula](https://render.githubusercontent.com/render/math?math=\lambda) is the focal length of the camera
+* ![formula](https://render.githubusercontent.com/render/math?math=\beta) is the conversion factor between the pixel size of the ball and the real size of the ball in meter
+* ![formula](https://render.githubusercontent.com/render/math?math=d_B) is the distance between the camera and the ball computed with the height of the camera and the projected distance on the ground with the Pythagore formula
+* ![formula](https://render.githubusercontent.com/render/math?math=l_{px}) is the size in pixel of the ball
+* ![formula](https://render.githubusercontent.com/render/math?math=l_B) is the real size of the ball (here 0.09 meters)
+
+Then we are able to create a function available in *estimate_camera_parameters.py* which will download some pictures available [here](https://ensta-bretagne.fr/zerr/filerepo/vsik/nao/) and which will detect the ball and compute the mean of ![formula](https://render.githubusercontent.com/render/math?math=\frac{\lambda}{\beta}) whith the given distance and de processed ball size in pixels.
+
+We get the following output :
+
+```bash
+$ python2 estimate_camera_parameters.py
+314.144662044
+```
+
+Then with a processed ball size in pixels, we are able to compute the estimated distance between the nao and the ball.
+
 ## Authors
 
 * **Quentin Brateau** -  [Teusner](https://github.com/Teusner) :sunglasses:
