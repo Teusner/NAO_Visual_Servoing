@@ -56,6 +56,12 @@ The goal of our mission is to target the ball with the nao's camera, and to be a
 
 ![formula](https://render.githubusercontent.com/render/math?math=\theta_c=K_p.(c_x-c_0))
 
+Where :
+* ![formula](https://render.githubusercontent.com/render/math?math=\theta_c) is the new control angle of the nao's head heading
+* ![formula](https://render.githubusercontent.com/render/math?math=K_p) is the proportionnal coefficient of the controller
+* ![formula](https://render.githubusercontent.com/render/math?math=c_x) is the center of the tracked ball in pixels along the x axis
+* ![formula](https://render.githubusercontent.com/render/math?math=c_0) is the center of the image in pixels along the x axis
+
 ## Ratio distance pixel estimating
 
 The ration between the distance of the ball from the camera of the nao and its pixel size on the image is
