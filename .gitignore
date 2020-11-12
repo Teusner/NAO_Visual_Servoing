@@ -1,6 +1,7 @@
 *.vscode*
 *pynaoqi*
-*UE52-VS-IK*
+UE52-VS-IK/
+!UE52-VS-IK/vs/py/nao_virtual_n_real_maj_2020.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
