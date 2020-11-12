@@ -7,13 +7,14 @@ This repository is a school project to introduce visual servoing in robotics. Th
 ## :barber: Tracker :barber:
 Here is a tracker for each task we have to do.
 
-| Task                     | Progression      |
-| -------------------------|:----------------:|
-| Ball detection           |:heavy_check_mark:|
-| Read and show NAO images |:heavy_check_mark:|
-| Realtime detection       |:x:               |
-| Head heading control     |:x:               |
-| Distance control         |:x:               |
+| Task                            | Progression      |
+| --------------------------------|:----------------:|
+| Ball detection                  |:heavy_check_mark:|
+| Read and show NAO images        |:heavy_check_mark:|
+| Realtime detection              |:x:               |
+| Head heading control            |:x:               |
+| Ratio distance pixel estimating |:heavy_check_mark:|
+| Distance control                |:x:               |
 
 ## Ball detection
 

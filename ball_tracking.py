@@ -9,8 +9,8 @@ import time
 
 class BallTracker:
 	def __init__(self):
-		self.greenLower = (29, 86, 6)
-		self.greenUpper = (64, 255, 255)
+		self.greenLower = (45//2, 45, 10)
+		self.greenUpper = (65//2, 255, 255)
 		self.positions = deque(maxlen=2)
 
 	def add_frame(self, frame):
@@ -28,6 +28,8 @@ class BallTracker:
 		mask = cv2.inRange(hsv, self.greenLower, self.greenUpper)
 		mask = cv2.erode(mask, None, iterations=2)
 		mask = cv2.dilate(mask, None, iterations=2)
+
+		
 
 		# find contours in the mask and initialize the current
 		# (x, y) center of the ball
