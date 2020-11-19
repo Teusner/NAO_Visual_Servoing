@@ -96,7 +96,7 @@ Then to move the nao we just need to use the motionProxy and the moveTo method. 
 
 The final result is visible on the following GIF and the correspondig video file (_nao.mp4_) is avilable in this repository :
 
-!()[nao.gif]
+![](nao.gif)
 
 ## Authors
 
