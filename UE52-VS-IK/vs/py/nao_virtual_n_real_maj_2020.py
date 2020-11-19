@@ -7,6 +7,7 @@ import random
 import math
 import os
 import signal
+from ball_tracking import *
 
 # specific to my laptop version (do not exist on Centos Students PCs)
 #import Image
@@ -222,12 +223,21 @@ while missed < 30:
       else:
          cv2.imwrite ("naoreal_%4.4d.png"%(imgCount),cvImg)
       imgCount+=1
-   cv2.imshow("proc",cvImg)
-   cv2.waitKey(1)
+   #cv2.imshow("proc",cvImg)
+   #cv2.waitKey(1)
 
    #
-   # ??? insert detection function here ???
-   #
+  ############################################################START DETECTION############################################################
+   # define the lower and upper boundaries of the "green"
+   # ball in the HSV color space, then initialize the
+   bt = BallTracker()
+
+      # grab the current frame
+   found, center, radius = bt.add_frame(cvImg)
+   
+      
+   
+   ##########################################################END OF DETECTION##########################################################
    
    camNum = 1
    lSubs=cameraProxy.getSubscribers()
@@ -239,11 +249,41 @@ while missed < 30:
    if (found):
       missed = 0
 
-      #
-      # ??? insert head control here ???
-      #
-      Kp = 0.2
-      head_yaw = -Kp * center[0]
+      print(found, center, radius)
+      try:
+         Xb,Yb=center
+         names  = ["HeadYaw", "HeadPitch"]
+         stiffnesses  = 1.0   # only activate head pitch and yaw servos
+         motionProxy.setStiffnesses(names, stiffnesses)
+         print("value",-(np.pi/2.0)*(Xb/(320.0)),Xb)
+         kp=0.5
+         kd=0.1
+         kxi=0.1
+         kyi=0.01
+         #-------Derivative error
+         try:
+            dEx= Ex + (np.pi/2.0)*(Xb/(320.0)) 
+            dEy= Ey + (np.pi/2.0)*(Yb/(240.0)) 
+         except:
+            dEx,dEy=0,0
+            
+         #------Integrated error
+         try:
+            iEx= iEx - (np.pi/2.0)*(Xb/(320.0)) 
+            iEy= iEy - (np.pi/2.0)*(Yb/(240.0)) 
+         except:
+            iEx,iEy=0,0
+            
+         #------Error
+         Ex=-(np.pi/2.0)*(Xb/(320.0))
+         Ey=-(np.pi/2.0)*(Yb/(240.0))
+         
+         
+         angles  = [Ex*kp+dEx*kd+iEx*kxi, Ey*kp+dEy*kd+iEy*kyi]
+         fractionMaxSpeed  = 1.0
+         motionProxy.setAngles(names, angles, fractionMaxSpeed)
+      except:
+         pass
       
 
    else:

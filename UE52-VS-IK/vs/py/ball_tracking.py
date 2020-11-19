@@ -9,8 +9,10 @@ import time
 
 class BallTracker:
 	def __init__(self):
-		self.greenLower = (45//2, 45, 10)
-		self.greenUpper = (65//2, 255, 255)
+		self.greenLower = (29, 86, 6)
+		self.greenUpper = (64, 255, 255)
+		# self.greenLower = (45//2, 45, 10)
+		# self.greenUpper = (65//2, 255, 255)
 		self.positions = deque(maxlen=2)
 
 	def add_frame(self, frame):
@@ -47,7 +49,10 @@ class BallTracker:
 			M = cv2.moments(c)
 
 			found, center = True, (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-
+			x,y=center
+			height, width = mask.shape[:2]
+			center=(x-width/2,-(y-height/2))
+			
 			# only proceed if the radius meets a minimum size
 			# if radius > 10:
 			# 	self.positions.appendleft(center)
