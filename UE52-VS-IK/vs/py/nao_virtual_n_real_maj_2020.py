@@ -228,6 +228,10 @@ while missed < 30:
 
    #
   ############################################################START DETECTION############################################################
+   angles  = [0, -1]
+   fractionMaxSpeed  = 1.0
+   motionProxy.setAngles(names, angles, fractionMaxSpeed)
+
    # define the lower and upper boundaries of the "green"
    # ball in the HSV color space, then initialize the
    bt = BallTracker()
@@ -239,7 +243,7 @@ while missed < 30:
    
    ##########################################################END OF DETECTION##########################################################
    
-   camNum = 1
+   camNum = 0
    lSubs=cameraProxy.getSubscribers()
    for subs in lSubs:
       if subs.startswith("python_client"):
@@ -282,6 +286,7 @@ while missed < 30:
          angles  = [Ex*kp+dEx*kd+iEx*kxi, Ey*kp+dEy*kd+iEy*kyi]
          fractionMaxSpeed  = 1.0
          motionProxy.setAngles(names, angles, fractionMaxSpeed)
+         
       except:
          pass
       
@@ -294,6 +299,16 @@ while missed < 30:
       time.sleep(tSleep)
    print "dtLoop = ",dtLoop,"tSleep = ",tSleep,"dt = ",dt,"frame rate = ",1./dt
 
+   motionProxy.wakeUp()
+   motionProxy.setWalkArmsEnabled(True, True)
+   motionProxy.setMotionConfig([["ENABLE_FOOT_CONTACT_PROTECTION", True]])
+   print("Rotating")
+   motionProxy.moveTo (0, 0, angles[0]-0.1)
+   print("Walking")
+   motionProxy.moveTo (0.09*314/(2*radius), 0, 0)
+   print("Shooting")
+   motionProxy.moveTo (0.3, 0, 0)
+   missed = 100
 
 # relax !  no current in servos
 print postureProxy.getPostureList()
