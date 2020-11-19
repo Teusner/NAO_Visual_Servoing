@@ -14,7 +14,8 @@ Here is a tracker for each task we have to do.
 | Realtime detection              |:heavy_check_mark:|
 | Head heading control            |:heavy_check_mark:|
 | Ratio distance pixel estimating |:heavy_check_mark:|
-| Distance control                |:x:               |
+| Shooting the ball               |:heavy_check_mark:|
+
 
 ## Ball detection
 
@@ -85,6 +86,17 @@ $ python2 estimate_camera_parameters.py
 ```
 
 Then with a processed ball size in pixels, we are able to compute the estimated distance between the nao and the ball.
+
+## Shooting the ball
+
+Then to move the nao we just need to use the motionProxy and the moveTo method. The motion is split into three steps :
+* Rotation of NAO according to the last angle of the head
+* Longitudinal motion of the NAO in the direction of the ball
+* Shoot of the ball
+
+The final result is visible on the following GIF and the correspondig video file (_nao.mp4_) is avilable in this repository :
+
+!()[nao.gif]
 
 ## Authors
 
