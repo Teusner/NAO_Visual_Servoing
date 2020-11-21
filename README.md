@@ -63,6 +63,10 @@ Where :
 * ![formula](https://render.githubusercontent.com/render/math?math=c_x) is the center of the tracked ball in pixels along the x axis
 * ![formula](https://render.githubusercontent.com/render/math?math=c_0) is the center of the image in pixels along the x axis
 
+We could see the result of the ball tracking on the foolowing GIF and the correspondig video file (_videos/visual\_servoing.mp4_) is avilable in this repository :
+
+![](videos/visual_servoing.gif)
+
 ## Ratio distance pixel estimating
 
 The ration between the distance of the ball from the camera of the nao and its pixel size on the image is
@@ -94,9 +98,9 @@ Then to move the nao we just need to use the motionProxy and the moveTo method. 
 * Longitudinal motion of the NAO in the direction of the ball
 * Shoot of the ball
 
-The final result is visible on the following GIF and the correspondig video file (_nao.mp4_) is avilable in this repository :
+The final result is visible on the following GIF and the correspondig video file (_videos/nao.mp4_) is avilable in this repository :
 
-![](nao.gif)
+![](videos/nao.gif)
 
 ## Authors
 
