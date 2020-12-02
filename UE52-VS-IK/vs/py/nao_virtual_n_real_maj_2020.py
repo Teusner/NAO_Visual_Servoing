@@ -259,8 +259,8 @@ while missed < 30 and np.abs(Error)>0.001:
 			names  = ["HeadYaw", "HeadPitch"]
 			stiffnesses  = 1.0   # only activate head pitch and yaw servos
 			motionProxy.setStiffnesses(names, stiffnesses)
-			kp=0.3
-			kd=1
+			kp=0.2
+			kd=0.7
 			kxi=0.004
 			kyi=0.01
 			#-------Derivative error
@@ -305,7 +305,13 @@ motionProxy.setMotionConfig([["ENABLE_FOOT_CONTACT_PROTECTION", True]])
 print("Rotating")
 motionProxy.moveTo (0, 0, angles[0]-0.1)
 print("Walking")
-motionProxy.moveTo (0.09*314/(2*radius), 0, 0)
+motionProxy.moveTo (0.09*314/(2*radius)-0.4, 0, 0)
+print("Goal detecting")
+goal_found = False
+while not goal_found:
+	phi = 10
+	motionProxy.moveTo(0.5*(1-np.cos(phi*np.pi/180)), 0.5*np.sin(phi*np.pi/180), -phi*np.pi/180)
+
 print("Shooting")
 motionProxy.moveTo (0.3, 0, 0)
 missed = 100
