@@ -60,6 +60,44 @@ class BallTracker:
 		
 		return found, center, radius
 
+
+class CageTracker:
+    	def __init__(self):
+		self.redLower = (0,130,130)
+		self.redUpper = (50, 255, 255)
+		self.positions = deque(maxlen=2)
+
+	def add_frame(self, frame):
+		found, center, radius = False, None, None
+		if frame is None:
+			return found, center, radius
+
+		# blur the frame, and convert it to the HSVcolor space
+		blurred = cv2.GaussianBlur(frame, (11, 11), 0)
+		hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
+		
+		# construct a mask for the color "green", then perform
+		# a series of dilations and erosions to remove any small
+		# blobs left in the mask
+		mask = cv2.inRange(hsv, self.redLower, self.redUpper)
+		mask = cv2.dilate(mask, None, iterations=40)
+		mask = cv2.erode(mask, None, iterations=30)
+
+		# find contours in the mask and initialize the current
+		cnts, _ = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+		
+		cnts=np.array(cnts[0])
+  		if len(cnts) > 0:
+			#finding the optimal rectancle
+			x,y,w,h = cv2.boundingRect(cnts)
+			found, center = True, (x+w/2,y+h/2)
+			x,y=center
+   			height, width = mask.shape[:2]
+			center=(x-width/2,-(y-height/2))
+   			
+		return found, center
+
+
 if __name__ == "__main__":
 	bt = BallTracker()
 

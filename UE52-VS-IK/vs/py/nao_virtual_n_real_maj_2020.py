@@ -13,39 +13,39 @@ from ball_tracking import *
 #import Image
 
 try:
-   from PIL import Image
+	from PIL import Image
 except:
-   import Image
+	import Image
 
 
 def cleanKillNao(signal, frame):
-   global postureProxy,motionProxy
-   print "pgm interrupted, put NAO is safe pose ..."
-   postureProxy.goToPosture("Crouch", 0.5)
-   time.sleep(0.5)
-   stiffnesses  = 0.0
-   motionProxy.setStiffnesses(["Body"], stiffnesses)
-   exit()
+	global postureProxy,motionProxy
+	print "pgm interrupted, put NAO is safe pose ..."
+	postureProxy.goToPosture("Crouch", 0.5)
+	time.sleep(0.5)
+	stiffnesses  = 0.0
+	motionProxy.setStiffnesses(["Body"], stiffnesses)
+	exit()
 
 
 def check_constant_green_image (img,width,height):
-   tstpix = []
-   tstpix.append (cvImg[0,0])
-   tstpix.append (cvImg[0,width-1])
-   tstpix.append (cvImg[height-1,0])
-   tstpix.append (cvImg[height-1,width-1])
-   cstgreen = True
-   for pix in tstpix:
-      if pix[0] != 0:
-         cstgreen = False
-         break
-      if (pix[1] != 154) and (pix[1] != 135):
-         cstgreen = False
-         break
-      if pix[2] != 0:
-         cstgreen = False
-         break
-   return cstgreen
+	tstpix = []
+	tstpix.append (cvImg[0,0])
+	tstpix.append (cvImg[0,width-1])
+	tstpix.append (cvImg[height-1,0])
+	tstpix.append (cvImg[height-1,width-1])
+	cstgreen = True
+	for pix in tstpix:
+		if pix[0] != 0:
+			cstgreen = False
+			break
+		if (pix[1] != 154) and (pix[1] != 135):
+			cstgreen = False
+			break
+		if pix[2] != 0:
+			cstgreen = False
+			break
+	return cstgreen
 
 
 debug=False
@@ -64,9 +64,9 @@ PORT = 11212  # NaoQi's port
 # Read IP address and PORT form arguments if any.
 print "%3d arguments"%(len(sys.argv))
 if len(sys.argv) > 1:
-   IP = sys.argv[1]
+	IP = sys.argv[1]
 if len(sys.argv) > 2:
-   PORT = int(sys.argv[2])
+	PORT = int(sys.argv[2])
 
 
 # get image from vrep simulator
@@ -79,19 +79,19 @@ cameraImage=os.path.join(vnao_path,vnao_image)
 
 # init motion
 try:
-   motionProxy = ALProxy("ALMotion", IP, PORT)
+	motionProxy = ALProxy("ALMotion", IP, PORT)
 except Exception, e:
-   print "Could not create proxy to ALMotion"
-   print "Error was: ", e
-   exit(1)
+	print "Could not create proxy to ALMotion"
+	print "Error was: ", e
+	exit(1)
 
 # init posture
 try:
-   postureProxy = ALProxy("ALRobotPosture", IP, PORT)
+	postureProxy = ALProxy("ALRobotPosture", IP, PORT)
 except Exception, e:
-   print "Could not create proxy to ALPosture"
-   print "Error was: ", e
-   exit(1)
+	print "Could not create proxy to ALPosture"
+	print "Error was: ", e
+	exit(1)
 
 
 # work ! set current to servos
@@ -123,24 +123,24 @@ fps = 4; # frame Per Second
 dtLoop = 1./fps
 cameraProxy.setParam(18, camNum)
 try:
-   lSubs=cameraProxy.getSubscribers()
-   for subs in lSubs:
-      if subs.startswith("python_client"):
-         cameraProxy.unsubscribe(subs)
+	lSubs=cameraProxy.getSubscribers()
+	for subs in lSubs:
+		if subs.startswith("python_client"):
+			cameraProxy.unsubscribe(subs)
 except:
-   print "cannot unsubscribe"
-   pass
+	print "cannot unsubscribe"
+	pass
 try:
-   videoClient = cameraProxy.subscribeCamera("python_client",camNum, 
-                                       resolution, colorSpace, fps)
+	videoClient = cameraProxy.subscribeCamera("python_client",camNum, 
+													resolution, colorSpace, fps)
 except:
-   print "pb with subscribe"
-   lSubs=cameraProxy.getSubscribers()
-   for subs in lSubs:
-      if subs.startswith("python_client"):
-         cameraProxy.unsubscribe(subs)
-   videoClient = cameraProxy.subscribeCamera("python_client",camNum,
-                                       resolution, colorSpace, fps)
+	print "pb with subscribe"
+	lSubs=cameraProxy.getSubscribers()
+	for subs in lSubs:
+		if subs.startswith("python_client"):
+			cameraProxy.unsubscribe(subs)
+	videoClient = cameraProxy.subscribeCamera("python_client",camNum,
+													resolution, colorSpace, fps)
 print cameraProxy.getSubscribers()
 print "videoClient ",videoClient
 # Get a camera image.
@@ -168,147 +168,147 @@ cv2.waitKey(1)
 # if image is constant green, then we are on the simulator (no actual video frame)
 cstGreen = check_constant_green_image (cvImg,imageWidth,imageHeight)
 if cstGreen:
-   print "run on simulated NAO, no video frame, use still images"
+	print "run on simulated NAO, no video frame, use still images"
 else:
-   print "run on real NAO"
+	print "run on real NAO"
 
 # Test getting a virtual camera image.
 imgok=False
 while not imgok:
-   if cstGreen:
-      try:
-         cvImg = cv2.imread(cameraImage)
-         imageHeight, imageWidth, imageChannels = cvImg.shape
-         imgok=True
-      except Exception, e:
-         print "Can't read image %s, retry ..."%(cameraImage)
-         imgok=False
-         time.sleep(0.25)
-   else:
-      imgok=True
+	if cstGreen:
+		try:
+			cvImg = cv2.imread(cameraImage)
+			imageHeight, imageWidth, imageChannels = cvImg.shape
+			imgok=True
+		except Exception, e:
+			print "Can't read image %s, retry ..."%(cameraImage)
+			imgok=False
+			time.sleep(0.25)
+	else:
+		imgok=True
 
 print "Image Size",imageWidth,imageHeight
 
 missed = 0
 
-while missed < 30: 
-   t0=time.time()
-   # Get current image (top cam)
-   imgok=False
-   found=False
-   while not imgok:
-      if cstGreen:
-         try:
-            cvImg = cv2.imread(cameraImage)
-            imgok=True
-         except Exception, e:
-            print "Can't read image %s, retry ..."%(cameraImage)
-            imgok=False
-            time.sleep(0.25)
-         cvImg = cv2.flip(cvImg,0)
-         # Save it (just to check)
-         if debug:
-            cv2.imwrite ("naosimimg.png",cvImg)
-      else:
-         naoImage = cameraProxy.getImageRemote(videoClient)
-         array = naoImage[6]
-         # Create a PIL Image from our pixel array.
-         pilImg = Image.frombytes("RGB", (imageWidth, imageHeight), array)
-         cvImg = np.array(pilImg) # Convert Image to OpenCV
-         cvImg = cvImg[:, :, ::-1].copy() # Convert RGB to BGR
-         imgok=True
-   if saveImgs:
-      if cstGreen:
-         cv2.imwrite ("naosimu_%4.4d.png"%(imgCount),cvImg)
-      else:
-         cv2.imwrite ("naoreal_%4.4d.png"%(imgCount),cvImg)
-      imgCount+=1
-   #cv2.imshow("proc",cvImg)
-   #cv2.waitKey(1)
+Error=100
+while missed < 30 and np.abs(Error)>0.001: 
+	t0=time.time()
+	# Get current image (top cam)
+	imgok=False
+	found=False
+	while not imgok:
+		if cstGreen:
+			try:
+				cvImg = cv2.imread(cameraImage)
+				imgok=True
+			except Exception, e:
+				print "Can't read image %s, retry ..."%(cameraImage)
+				imgok=False
+				time.sleep(0.25)
+			cvImg = cv2.flip(cvImg,0)
+			# Save it (just to check)
+			if debug:
+				cv2.imwrite ("naosimimg.png",cvImg)
+		else:
+			naoImage = cameraProxy.getImageRemote(videoClient)
+			array = naoImage[6]
+			# Create a PIL Image from our pixel array.
+			pilImg = Image.frombytes("RGB", (imageWidth, imageHeight), array)
+			cvImg = np.array(pilImg) # Convert Image to OpenCV
+			cvImg = cvImg[:, :, ::-1].copy() # Convert RGB to BGR
+			imgok=True
+	if saveImgs:
+		if cstGreen:
+			cv2.imwrite ("naosimu_%4.4d.png"%(imgCount),cvImg)
+		else:
+			cv2.imwrite ("naoreal_%4.4d.png"%(imgCount),cvImg)
+		imgCount+=1
+	#cv2.imshow("proc",cvImg)
+	#cv2.waitKey(1)
 
-   #
+	#
   ############################################################START DETECTION############################################################
-   angles  = [0, -1]
-   fractionMaxSpeed  = 1.0
-   motionProxy.setAngles(names, angles, fractionMaxSpeed)
+	''' angles  = [0, -1]
+	fractionMaxSpeed  = 1.0
+	motionProxy.setAngles(names, angles, fractionMaxSpeed) '''
 
-   # define the lower and upper boundaries of the "green"
-   # ball in the HSV color space, then initialize the
-   bt = BallTracker()
+	# define the lower and upper boundaries of the "green"
+	# ball in the HSV color space, then initialize the
+	bt = BallTracker()
 
-      # grab the current frame
-   found, center, radius = bt.add_frame(cvImg)
-   
-      
-   
-   ##########################################################END OF DETECTION##########################################################
-   
-   camNum = 0
-   lSubs=cameraProxy.getSubscribers()
-   for subs in lSubs:
-      if subs.startswith("python_client"):
-         cameraProxy.unsubscribe(subs)
-   videoClient = cameraProxy.subscribeCamera("python_client",camNum,
-                                       resolution, colorSpace, fps)
-   if (found):
-      missed = 0
+		# grab the current frame
+	found, center, radius = bt.add_frame(cvImg)
+	
+		
+	
+	##########################################################END OF DETECTION##########################################################
+	
+	camNum = 0
+	lSubs=cameraProxy.getSubscribers()
+	for subs in lSubs:
+		if subs.startswith("python_client"):
+			cameraProxy.unsubscribe(subs)
+	videoClient = cameraProxy.subscribeCamera("python_client",camNum,
+													resolution, colorSpace, fps)
+	if (found):
+		missed = 0
 
-      print(found, center, radius)
-      try:
-         Xb,Yb=center
-         names  = ["HeadYaw", "HeadPitch"]
-         stiffnesses  = 1.0   # only activate head pitch and yaw servos
-         motionProxy.setStiffnesses(names, stiffnesses)
-         print("value",-(np.pi/2.0)*(Xb/(320.0)),Xb)
-         kp=0.5
-         kd=0.1
-         kxi=0.1
-         kyi=0.01
-         #-------Derivative error
-         try:
-            dEx= Ex + (np.pi/2.0)*(Xb/(320.0)) 
-            dEy= Ey + (np.pi/2.0)*(Yb/(240.0)) 
-         except:
-            dEx,dEy=0,0
-            
-         #------Integrated error
-         try:
-            iEx= iEx - (np.pi/2.0)*(Xb/(320.0)) 
-            iEy= iEy - (np.pi/2.0)*(Yb/(240.0)) 
-         except:
-            iEx,iEy=0,0
-            
-         #------Error
-         Ex=-(np.pi/2.0)*(Xb/(320.0))
-         Ey=-(np.pi/2.0)*(Yb/(240.0))
-         
-         
-         angles  = [Ex*kp+dEx*kd+iEx*kxi, Ey*kp+dEy*kd+iEy*kyi]
-         fractionMaxSpeed  = 1.0
-         motionProxy.setAngles(names, angles, fractionMaxSpeed)
-         
-      except:
-         pass
-      
+		try:
+			Xb,Yb=center
+			names  = ["HeadYaw", "HeadPitch"]
+			stiffnesses  = 1.0   # only activate head pitch and yaw servos
+			motionProxy.setStiffnesses(names, stiffnesses)
+			kp=0.3
+			kd=1
+			kxi=0.004
+			kyi=0.01
+			#-------Derivative error
+			try:
+				dEx= Ex + (np.pi/2.0)*(Xb/(320.0)) 
+				dEy= Ey + (np.pi/2.0)*(Yb/(240.0)) 
+			except:
+				dEx,dEy=0,0
+				
+			#------Integrated error
+			try:
+				iEx= iEx - (np.pi/2.0)*(Xb/(320.0)) 
+				iEy= iEy - (np.pi/2.0)*(Yb/(240.0)) 
+			except:
+				iEx,iEy=0,0
+				
+			#------Error
+			Ex=-(np.pi/2.0)*(Xb/(320.0))
+			Ey=-(np.pi/2.0)*(Yb/(240.0))
+			
+			Error=Ex*kp+dEx*kd+iEx*kxi+Ey*kp+dEy*kd+iEy*kyi
+			print(Error)
+			angles  = [Ex*kp+dEx*kd+iEx*kxi, Ey*kp+dEy*kd+iEy*kyi]
+			
+			fractionMaxSpeed  = 1.0
+			motionProxy.setAngles(names, angles, fractionMaxSpeed)
+			
+		except:
+			pass
+		
+else:
+	missed += 1
+dt = time.time()-t0
+tSleep = dtLoop-dt
+if tSleep>0:
+	time.sleep(tSleep)
+print "dtLoop = ",dtLoop,"tSleep = ",tSleep,"dt = ",dt,"frame rate = ",1./dt
 
-   else:
-      missed += 1
-   dt = time.time()-t0
-   tSleep = dtLoop-dt
-   if tSleep>0:
-      time.sleep(tSleep)
-   print "dtLoop = ",dtLoop,"tSleep = ",tSleep,"dt = ",dt,"frame rate = ",1./dt
-
-   motionProxy.wakeUp()
-   motionProxy.setWalkArmsEnabled(True, True)
-   motionProxy.setMotionConfig([["ENABLE_FOOT_CONTACT_PROTECTION", True]])
-   print("Rotating")
-   motionProxy.moveTo (0, 0, angles[0]-0.1)
-   print("Walking")
-   motionProxy.moveTo (0.09*314/(2*radius), 0, 0)
-   print("Shooting")
-   motionProxy.moveTo (0.3, 0, 0)
-   missed = 100
+motionProxy.wakeUp()
+motionProxy.setWalkArmsEnabled(True, True)
+motionProxy.setMotionConfig([["ENABLE_FOOT_CONTACT_PROTECTION", True]])
+print("Rotating")
+motionProxy.moveTo (0, 0, angles[0]-0.1)
+print("Walking")
+motionProxy.moveTo (0.09*314/(2*radius), 0, 0)
+print("Shooting")
+motionProxy.moveTo (0.3, 0, 0)
+missed = 100
 
 # relax !  no current in servos
 print postureProxy.getPostureList()
