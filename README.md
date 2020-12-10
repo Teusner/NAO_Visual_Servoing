@@ -109,10 +109,10 @@ The final result is visible on the following GIF and the correspondig video file
 
 ## Rotating around the ball
 
-To rotate around the ball we are stting control in order to have the NAO walking on the 0.5 meter circle around the ball. To rotate on an angle ![formula](https://render.githubusercontent.com/render/math?math=\phi), we need to move the robot along the x-axis and the y-axis as the following equation :
+To rotate around the ball we are stting control in order to have the NAO walking on the 0.5 meter circle around the ball. To rotate on an angle ![formula](https://render.githubusercontent.com/render/math?math=\theta), we need to move the robot along the x-axis and the y-axis as the following equation :
 
-* ![formula](https://render.githubusercontent.com/render/math?math=dX=R\times (1-cos(\phi))
-* ![formula](https://render.githubusercontent.com/render/math?math=dX=R\times sin(\phi))
+* ![formula](https://render.githubusercontent.com/render/math?math=dX=R*(1-cos(\theta)))
+* ![formula](https://render.githubusercontent.com/render/math?math=dX=R*sin(\theta))
 
 Where R is the radius of the circle (here 0.5 meter). We get the following result :
 
