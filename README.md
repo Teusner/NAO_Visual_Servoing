@@ -124,7 +124,7 @@ A cage tracking image processing chain has been coded in order to detect if the 
 
 | Original Image             | Treshholded Image           | Tracked Cage             |
 |:--------------------------:|:---------------------------:|:------------------------:| 
-|![](./imgs/cage_notrack.png)|![](./imgs/treshold_cage.jpg)|![](./imgs/cage_found.jpg)|
+|![](./imgs/cage_notrack.png)|![](./imgs/cage_treshold.jpg)|![](./imgs/cage_found.jpg)|
 
 Note : We use here a real image because in the simulator there is no modelized cage. So to try our algorithm we need to use this kind of image from the real mission.
 
