@@ -112,7 +112,7 @@ The final result is visible on the following GIF and the correspondig video file
 To rotate around the ball we are stting control in order to have the NAO walking on the 0.5 meter circle around the ball. To rotate on an angle ![formula](https://render.githubusercontent.com/render/math?math=\theta), we need to move the robot along the x-axis and the y-axis as the following equation :
 
 * ![formula](https://render.githubusercontent.com/render/math?math=dX=R*(1-cos(\theta)))
-* ![formula](https://render.githubusercontent.com/render/math?math=dX=R*sin(\theta))
+* ![formula](https://render.githubusercontent.com/render/math?math=dY=R*sin(\theta))
 
 Where R is the radius of the circle (here 0.5 meter). We get the following result :
 
@@ -130,7 +130,7 @@ Note : We use here a real image because in the simulator there is no modelized c
 
 ## Final Shoot
 
-We where not able to do the final shoot becaus the simulated environment don't have any cage. Because the time to modelize a cage with the good colors in order to be detected by our algorithm will take too much time, we were not able to try the final shoot but the code seems to correctly work for every single tasks.
+We where not able to do the final shoot because the simulated environment don't have any cage. Because the time to modelize a cage with the good colors in order to be detected by our algorithm will take too much time, we were not able to try the final shoot but the code seems to correctly work for every single tasks.
 
 ## Authors
 
