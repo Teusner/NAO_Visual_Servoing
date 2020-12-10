@@ -17,6 +17,7 @@ Here is a tracker for each task we have to do.
 | Shooting the ball               |:heavy_check_mark:|
 
 | Bonus                           | Progression      |
+| --------------------------------|:----------------:|
 | Rotating around the ball        |:heavy_check_mark:|
 | Cage detection                  |:heavy_check_mark:|
 | Final shoot                     |:x:               |
