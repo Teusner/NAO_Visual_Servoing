@@ -16,6 +16,10 @@ Here is a tracker for each task we have to do.
 | Ratio distance pixel estimating |:heavy_check_mark:|
 | Shooting the ball               |:heavy_check_mark:|
 
+| Bonus                           | Progression      |
+| Rotating around the ball        |:heavy_check_mark:|
+| Cage detection                  |:heavy_check_mark:|
+| Final shoot                     |:x:               |
 
 ## Ball detection
 
@@ -101,6 +105,31 @@ Then to move the nao we just need to use the motionProxy and the moveTo method. 
 The final result is visible on the following GIF and the correspondig video file (_videos/nao.mp4_) is avilable in this repository :
 
 ![](videos/nao.gif)
+
+## Rotating around the ball
+
+To rotate around the ball we are stting control in order to have the NAO walking on the 0.5 meter circle around the ball. To rotate on an angle ![formula](https://render.githubusercontent.com/render/math?math=\phi), we need to move the robot along the x-axis and the y-axis as the following equation :
+
+* ![formula](https://render.githubusercontent.com/render/math?math=dX=R\times (1-cos(\phi))
+* ![formula](https://render.githubusercontent.com/render/math?math=dX=R\times sin(\phi))
+
+Where R is the radius of the circle (here 0.5 meter). We get the following result :
+
+![](videos/nao_rotating.gif)
+
+## Cage detection
+
+A cage tracking image processing chain has been coded in order to detect if the cage is in the vision field of the robot. THe following results are available and we could determine when the cage and the ball are aligned with the robot.
+
+| Original Image             | Tracked Image            |
+|:--------------------------:|:------------------------:| 
+|![](./imgs/cage_notrack.png)|![](./imgs/cage_track.png)|
+
+Note : We use here a real image because in the simulator there is no modelized cage. So to try our algorithm we need to use this kind of image from the real mission.
+
+## Final Shoot
+
+We where not able to do the final shoot becaus the simulated environment don't have any cage. Because the time to modelize a cage with the good colors in order to be detected by our algorithm will take too much time, we were not able to try the final shoot but the code seems to correctly work for every single tasks.
 
 ## Authors
 
